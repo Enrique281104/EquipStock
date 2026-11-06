@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">EquipStock</string>
+    <string name="login_titulo">Bienvenido</string>
+    <string name="login_email_label">Correo electrónico</string>
+    <string name="login_email_hint">example@example.com</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_btn_ingresar">Ingresar</string>
+    <string name="login_btn_registro">Regístrate</string>
+
+    <string name="registro_titulo">Crea Tu Cuenta</string>
+    <string name="registro_nombre_label">Nombre</string>
+    <string name="registro_nombre_hint">Juan Pérez</string>
+    <string name="registro_confirmar_label">Confirma tu contraseña</string>
+    <string name="registro_btn">Registrarse</string>
+    <string name="registro_ya_cuenta">¿Ya tienes una cuenta? Inicia sesión</string>
+
 </resources>

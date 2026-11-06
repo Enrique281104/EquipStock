@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="background">#00D09E</color>
+    <color name="surface">#F1FFF3</color>
+    <color name="field_background">#DFF7E2</color>
+    <color name="text_primary">#093030</color>
+    <color name="text_on_field">#093030</color>
+    <color name="text_hint">#990E3E3E</color>
+
+    <!-- Provisionales: confirmar con Figma -->
+    <color name="primary">#00D09E</color>
+    <color name="on_primary">#093030</color>
+    <color name="text_on_background">#093030</color>
 </resources>

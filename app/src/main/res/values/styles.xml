@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeTopRounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">48dp</item>
+        <item name="cornerSizeTopRight">48dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="EsLabel" parent="">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="EsInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/field_background</item>
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="EsInput" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="android:textColor">@color/text_on_field</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="EsButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="cornerRadius">28dp</item>
+    </style>
+
+    <style name="EsButtonSecondary" parent="EsButton">
+        <item name="backgroundTint">@color/field_background</item>
+        <item name="android:textColor">@color/text_on_field</item>
+    </style>
+
+</resources>
