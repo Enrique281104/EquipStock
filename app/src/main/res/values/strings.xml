@@ -14,4 +14,26 @@
     <string name="registro_btn">Registrarse</string>
     <string name="registro_ya_cuenta">¿Ya tienes una cuenta? Inicia sesión</string>
 
+    <string name="categorias_titulo">Categorías</string>
+    <string name="categorias_buscar">Buscar categoría por nombre...</string>
+    <string name="categorias_vacio">No hay categorías para mostrar</string>
+    <string name="categorias_sin_sincronizar">Sin sincronizar</string>
+    <string name="categorias_editar">Editar categoría</string>
+    <string name="categorias_agregar">Agregar categoría</string>
+    <plurals name="equipos_vinculados">
+        <item quantity="one">%d Equipo vinculado</item>
+        <item quantity="other">%d Equipos vinculados</item>
+    </plurals>
+
+    <string name="categoria_form_registrar">Registrar Categoría</string>
+    <string name="categoria_form_editar">Editar Categoría</string>
+    <string name="categoria_form_nombre">Nombre de la Categoría</string>
+    <string name="categoria_form_nombre_hint">Ej: Equipos de Audio y Video</string>
+    <string name="categoria_form_descripcion">Descripción</string>
+    <string name="categoria_form_descripcion_hint">Micrófonos, bocinas, consolas y periféricos.</string>
+    <string name="categoria_form_icono">Seleccionar Ícono Representativo</string>
+    <string name="categoria_form_guardar">Guardar Categoría</string>
+    <string name="volver">Volver</string>
+    <string name="eliminar">Eliminar</string>
+
 </resources>

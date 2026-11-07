@@ -4,37 +4,76 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
-
+import edu.sv.ues.dam235.equipstock.views.PlaceholderFragment;
+import edu.sv.ues.dam235.equipstock.views.auth.LoginActivity;
+import edu.sv.ues.dam235.equipstock.views.categories.CategoriasFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+
+        session = new SessionManager(this);
+        if (!session.haySesion()) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, bars.top, 0, 0);
             return insets;
         });
 
-        SessionManager s = new SessionManager(this);
-        Toast.makeText(this, "Hola " + s.getNombre() + " (" + s.getRol() + ")",
-                Toast.LENGTH_LONG).show();
-        findViewById(R.id.main).setOnLongClickListener(v -> {
-            s.cerrarSesion();
-            startActivity(new Intent(this, edu.sv.ues.dam235.equipstock.views.auth.LoginActivity.class));
-            finish();
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            mostrar(fragmentPara(item.getItemId()));
             return true;
         });
 
+        if (savedInstanceState == null) {
+            bottomNav.setSelectedItemId(R.id.nav_home);
+        }
+
+        // TEMPORAL: mantener presionada la pantalla cierra sesion (falta flujo de logout))
+        findViewById(R.id.fragmentContainer).setOnLongClickListener(v -> {
+            session.cerrarSesion();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return true;
+        });
+    }
+
+    private Fragment fragmentPara(int id) {
+        if (id == R.id.nav_equipos) return PlaceholderFragment.nueva("Equipos");
+        if (id == R.id.nav_mantenimientos) return PlaceholderFragment.nueva("Mantenimientos");
+        if (id == R.id.nav_categorias) return new CategoriasFragment();
+        if (id == R.id.nav_perfil) return PlaceholderFragment.nueva("Perfil");
+        return PlaceholderFragment.nueva("Inicio");
+    }
+
+    private void mostrar(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fm.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .commit();
     }
 }
