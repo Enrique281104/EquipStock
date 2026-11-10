@@ -13,7 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
+import edu.sv.ues.dam235.equipstock.repositories.UbicacionRepository;
+import edu.sv.ues.dam235.equipstock.sync.SyncManager;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
+import edu.sv.ues.dam235.equipstock.views.PerfilFragment;
 import edu.sv.ues.dam235.equipstock.views.PlaceholderFragment;
 import edu.sv.ues.dam235.equipstock.views.auth.LoginActivity;
 import edu.sv.ues.dam235.equipstock.views.categories.CategoriasFragment;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+        SyncManager.get(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.nav_equipos) return PlaceholderFragment.nueva("Equipos");
         if (id == R.id.nav_mantenimientos) return PlaceholderFragment.nueva("Mantenimientos");
         if (id == R.id.nav_categorias) return new CategoriasFragment();
-        if (id == R.id.nav_perfil) return PlaceholderFragment.nueva("Perfil");
+        if (id == R.id.nav_perfil) return new PerfilFragment();
         return PlaceholderFragment.nueva("Inicio");
     }
 

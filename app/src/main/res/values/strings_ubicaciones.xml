@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ubicaciones_titulo">Ubicaciones</string>
+    <string name="ubicaciones_buscar">Buscar ubicación por nombre...</string>
+    <string name="ubicaciones_vacio">No hay ubicaciones para mostrar</string>
+    <string name="ubicaciones_agregar">Agregar ubicación</string>
+    <string name="ubicaciones_sin_sincronizar">Sin sincronizar</string>
+    <string name="ubicacion_form_registrar">Registrar Ubicación</string>
+    <string name="ubicacion_form_editar">Editar Ubicación</string>
+    <string name="ubicacion_form_nombre">Nombre de la Ubicación</string>
+    <string name="ubicacion_form_nombre_hint">Ej: Edificio A - Aula 102</string>
+    <string name="ubicacion_form_descripcion">Descripción</string>
+    <string name="ubicacion_form_descripcion_hint">Aula de informática, primer piso</string>
+    <string name="ubicacion_form_guardar">Guardar Ubicación</string>
+    <plurals name="equipos_asignados">
+        <item quantity="one">%d Equipo asignado</item>
+        <item quantity="other">%d Equipos asignados</item>
+    </plurals>
+</resources>

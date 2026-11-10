@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import edu.sv.ues.dam235.equipstock.database.CategoriaEntity;
 import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
+import edu.sv.ues.dam235.equipstock.sync.Resultado;
+
 import java.util.List;
 
 public class CategoriaViewModel extends AndroidViewModel {
@@ -27,7 +29,7 @@ public class CategoriaViewModel extends AndroidViewModel {
         filtro.setValue(texto);
     }
 
-    public void sincronizarUnaVez(CategoriaRepository.Resultado resultado) {
+    public void sincronizarUnaVez(Resultado resultado) {
         if (sincronizado) return;
         sincronizado = true;
         repo.sincronizar(resultado);

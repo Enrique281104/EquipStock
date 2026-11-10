@@ -10,6 +10,9 @@ import edu.sv.ues.dam235.equipstock.database.AppDatabase;
 import edu.sv.ues.dam235.equipstock.database.CategoriaDao;
 import edu.sv.ues.dam235.equipstock.database.CategoriaEntity;
 import edu.sv.ues.dam235.equipstock.models.CategoriaDto;
+import edu.sv.ues.dam235.equipstock.sync.Resultado;
+import edu.sv.ues.dam235.equipstock.sync.Sincronizable;
+import edu.sv.ues.dam235.equipstock.sync.SyncManager;
 import edu.sv.ues.dam235.equipstock.sync.SyncStatus;
 import java.io.IOException;
 import java.util.HashSet;
@@ -20,11 +23,9 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import retrofit2.Response;
 
-public class CategoriaRepository {
 
-    public interface Resultado {
-        void alTerminar(boolean ok, String mensaje);
-    }
+
+public class CategoriaRepository implements Sincronizable {
 
     private static CategoriaRepository instance;
 
@@ -35,14 +36,16 @@ public class CategoriaRepository {
         return instance;
     }
 
+    private final Context appContext;
     private final AppDatabase db;
     private final CategoriaDao dao;
     private final CategoriaApi api;
     private final ExecutorService dbExecutor = Executors.newSingleThreadExecutor();
-    private final ExecutorService syncExecutor = Executors.newSingleThreadExecutor();
-    private final Handler main = new Handler(Looper.getMainLooper());
+
+
 
     private CategoriaRepository(Context appContext) {
+        this.appContext = appContext;
         db = AppDatabase.get(appContext);
         dao = db.categoriaDao();
         api = ApiClient.get(appContext).create(CategoriaApi.class);
@@ -103,17 +106,15 @@ public class CategoriaRepository {
     // ---------- Sincronización ----------
 
     public void sincronizar(Resultado callback) {
-        syncExecutor.execute(() -> {
-            String error;
-            try {
-                String errorEnvio = enviarPendientes();
-                String errorRecepcion = traerDelServidor();
-                error = errorEnvio != null ? errorEnvio : errorRecepcion;
-            } catch (IOException e) {
-                error = "Sin conexión. Los cambios se enviarán cuando haya internet.";
-            }
-            notificar(callback, error);
-        });
+        SyncManager.get(appContext).sincronizar(callback);
+    }
+
+    @Override
+    public String sincronizarAhora() throws IOException {
+        String errorEnvio = enviarPendientes();
+        String errorRecepcion = traerDelServidor();
+
+        return errorEnvio != null ? errorEnvio : errorRecepcion;
     }
 
     private String enviarPendientes() throws IOException {
@@ -243,9 +244,4 @@ public class CategoriaRepository {
         return "Error del servidor (" + codigo + ").";
     }
 
-    private void notificar(Resultado callback, String error) {
-        if (callback != null) {
-            main.post(() -> callback.alTerminar(error == null, error));
-        }
-    }
 }

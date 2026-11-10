@@ -5,10 +5,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {CategoriaEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {CategoriaEntity.class, UbicacionEntity.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract CategoriaDao categoriaDao();
+    public abstract UbicacionDao ubicacionDao();
 
     private static volatile AppDatabase instance;
 

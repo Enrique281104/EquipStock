@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import edu.sv.ues.dam235.equipstock.R;
 import edu.sv.ues.dam235.equipstock.database.CategoriaEntity;
 import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
+import edu.sv.ues.dam235.equipstock.sync.Resultado;
 import edu.sv.ues.dam235.equipstock.utils.IconosCategoria;
 
 public class CategoriaFormFragment extends Fragment {
@@ -91,7 +92,7 @@ public class CategoriaFormFragment extends Fragment {
         // El fragmento se cierra antes de que termine el envío, así que el aviso
         // se muestra con el contexto de la aplicación.
         Context app = requireContext().getApplicationContext();
-        CategoriaRepository.Resultado aviso = (ok, mensaje) -> {
+        Resultado aviso = (ok, mensaje) -> {
             if (!ok) Toast.makeText(app, mensaje, Toast.LENGTH_LONG).show();
         };
 
