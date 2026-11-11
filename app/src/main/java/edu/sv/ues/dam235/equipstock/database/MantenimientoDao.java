@@ -48,6 +48,16 @@ public interface MantenimientoDao {
             + "WHERE m.localId = :localId")
     LiveData<MantenimientoConDetalle> observarDetalle(long localId);
 
+    @Query("SELECT "
+            + "COALESCE(SUM(CASE WHEN estado = 'COMPLETADO' THEN 1 ELSE 0 END), 0) AS completados, "
+            + "COALESCE(SUM(CASE WHEN estado = 'EN_PROCESO' "
+            + "  AND (fechaProgramada IS NULL OR fechaProgramada >= :hoy) THEN 1 ELSE 0 END), 0) "
+            + "  AS enProceso, "
+            + "COALESCE(SUM(CASE WHEN estado = 'EN_PROCESO' AND fechaProgramada < :hoy "
+            + "  THEN 1 ELSE 0 END), 0) AS vencidos "
+            + "FROM mantenimientos WHERE (:tecnicoId = 0 OR tecnicoId = :tecnicoId)")
+    LiveData<ResumenMantenimientos> resumen(long tecnicoId, String hoy);
+
     @Query("SELECT * FROM mantenimientos WHERE equipoLocalId = :equipoLocalId "
             + "ORDER BY fechaProgramada DESC, localId DESC LIMIT :limite")
     LiveData<List<MantenimientoEntity>> ultimosDeEquipo(long equipoLocalId, int limite);

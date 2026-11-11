@@ -10,6 +10,7 @@ import edu.sv.ues.dam235.equipstock.database.EquipoEntity;
 import edu.sv.ues.dam235.equipstock.database.MantenimientoConDetalle;
 import edu.sv.ues.dam235.equipstock.database.MantenimientoDao;
 import edu.sv.ues.dam235.equipstock.database.MantenimientoEntity;
+import edu.sv.ues.dam235.equipstock.database.ResumenMantenimientos;
 import edu.sv.ues.dam235.equipstock.models.MantenimientoDto;
 import edu.sv.ues.dam235.equipstock.sync.Resultado;
 import edu.sv.ues.dam235.equipstock.sync.Sincronizable;
@@ -65,6 +66,11 @@ public class MantenimientoRepository implements Sincronizable {
 
     public LiveData<List<MantenimientoEntity>> ultimosDeEquipo(long equipoLocalId, int limite) {
         return dao.ultimosDeEquipo(equipoLocalId, limite);
+    }
+
+    /** Conteos por estado. tecnicoId = 0 significa todos los técnicos. */
+    public LiveData<ResumenMantenimientos> resumen(long tecnicoId) {
+        return dao.resumen(tecnicoId, FechaUtil.hoy());
     }
 
     // ---------- Escritura local + intento de sincronizar ----------

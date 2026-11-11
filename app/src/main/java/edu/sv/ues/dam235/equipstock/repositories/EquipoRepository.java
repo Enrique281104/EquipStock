@@ -73,6 +73,10 @@ public class EquipoRepository implements Sincronizable {
         return dao.observarDetalle(localId);
     }
 
+    public LiveData<Integer> contar() {
+        return dao.contar();
+    }
+
     public interface AlValidar {
         void resultado(boolean codigoRepetido, boolean serieRepetida);
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_hola_admin">¡Hola, Administrador!</string>
+    <string name="dashboard_hola_tecnico">¡Hola, Técnico!</string>
+    <string name="dashboard_total_equipos">Total Equipos</string>
+    <string name="dashboard_vencidos">Mantenimientos Vencidos</string>
+    <string name="dashboard_pendientes">Pendientes/ En Proceso</string>
+    <string name="dashboard_vencidos_acumulados">Vencidos Acumulados</string>
+    <string name="dashboard_estado_titulo">Estado de Mantenimientos</string>
+    <string name="dashboard_en_linea">● En línea</string>
+    <string name="dashboard_sin_conexion">● Sin conexión</string>
+    <string name="dashboard_total">Total</string>
+    <string name="dashboard_ley_completados">Completados</string>
+    <string name="dashboard_ley_proceso">En Proceso</string>
+    <string name="dashboard_ley_vencidos">Vencidos</string>
+    <string name="dashboard_tab_completados">Completados</string>
+    <string name="dashboard_tab_todos">Todos</string>
+    <string name="dashboard_tab_proceso">En Proceso</string>
+    <string name="dashboard_tab_vencidos">Vencidos</string>
+    <string name="dashboard_vacio">No hay mantenimientos para mostrar</string>
+</resources>

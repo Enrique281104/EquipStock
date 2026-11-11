@@ -22,6 +22,7 @@ import edu.sv.ues.dam235.equipstock.views.PerfilFragment;
 import edu.sv.ues.dam235.equipstock.views.PlaceholderFragment;
 import edu.sv.ues.dam235.equipstock.views.auth.LoginActivity;
 import edu.sv.ues.dam235.equipstock.views.categories.CategoriasFragment;
+import edu.sv.ues.dam235.equipstock.views.dashboard.DashboardFragment;
 import edu.sv.ues.dam235.equipstock.views.equipment.EquiposFragment;
 import edu.sv.ues.dam235.equipstock.views.maintenance.MantenimientosFragment;
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.nav_mantenimientos) return new MantenimientosFragment();
         if (id == R.id.nav_categorias) return new CategoriasFragment();
         if (id == R.id.nav_perfil) return new PerfilFragment();
-        return PlaceholderFragment.nueva("Inicio");
+        return new DashboardFragment();
     }
 
     private void mostrar(Fragment fragment) {

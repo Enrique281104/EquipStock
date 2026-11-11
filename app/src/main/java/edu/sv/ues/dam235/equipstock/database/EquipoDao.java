@@ -41,6 +41,9 @@ public interface EquipoDao {
             + "WHERE e.localId = :localId")
     LiveData<EquipoConDetalle> observarDetalle(long localId);
 
+    @Query("SELECT COUNT(*) FROM equipos WHERE syncStatus <> 'PENDING_DELETE'")
+    LiveData<Integer> contar();
+
     @Query("SELECT COUNT(*) FROM equipos WHERE codigoActivo = :codigo AND localId <> :excluir "
             + "AND syncStatus <> 'PENDING_DELETE'")
     int contarCodigo(String codigo, long excluir);
