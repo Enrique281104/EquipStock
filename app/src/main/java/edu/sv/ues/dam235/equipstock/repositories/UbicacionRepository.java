@@ -51,6 +51,10 @@ public class UbicacionRepository implements Sincronizable {
         return dao.buscar(texto);
     }
 
+    public LiveData<List<UbicacionEntity>> todas() {
+        return dao.todas();
+    }
+
     // ---------- Escritura local (instantánea) + intento de sincronizar ----------
 
     public void crear(String nombre, String descripcion, Resultado cb) {

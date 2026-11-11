@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="equipos_titulo">Equipos</string>
+    <string name="equipos_buscar">Buscar por nombre, serie o tag</string>
+    <string name="equipos_vacio">No hay equipos para mostrar</string>
+    <string name="equipos_agregar">Agregar equipo</string>
+    <string name="equipos_sin_sincronizar">Sin sincronizar</string>
+    <string name="equipos_serie_codigo">Serie: %1$s · Cód: %2$s</string>
+    <string name="equipos_filtro_todos">Todos</string>
+    <string name="equipos_filtro_operativo">Operativo</string>
+    <string name="equipos_filtro_mantenimiento">En Mantenimiento</string>
+    <string name="equipos_filtro_inactivo">Inactivo</string>
+
+    <string name="equipo_detalle_titulo">Detalle de Equipo</string>
+    <string name="equipo_detalle_info">Información General</string>
+    <string name="equipo_detalle_serie">Número de Serie</string>
+    <string name="equipo_detalle_codigo">Código de Activo</string>
+    <string name="equipo_detalle_categoria">Categoría</string>
+    <string name="equipo_detalle_ubicacion">Ubicación</string>
+    <string name="equipo_detalle_historial">HISTORIAL DE MANTENIMIENTO</string>
+    <string name="equipo_detalle_historial_vacio">Aún no hay mantenimientos registrados</string>
+    <string name="equipo_menu">Más opciones</string>
+    <string name="equipo_form_nuevo">Nuevo Equipo</string>
+    <string name="equipo_form_editar">Editar Equipo</string>
+    <string name="equipo_form_datos">Datos del equipo</string>
+    <string name="equipo_form_info">Información del equipo</string>
+    <string name="equipo_form_nombre">Nombre</string>
+    <string name="equipo_form_nombre_hint">Nombre del equipo</string>
+    <string name="equipo_form_serie">Serie</string>
+    <string name="equipo_form_serie_hint">Número de serie</string>
+    <string name="equipo_form_codigo">Código de Activo</string>
+    <string name="equipo_form_codigo_hint">Código de activo</string>
+    <string name="equipo_form_categoria">Categoría</string>
+    <string name="equipo_form_categoria_hint">Selecciona una categoría</string>
+    <string name="equipo_form_ubicacion">Ubicación</string>
+    <string name="equipo_form_ubicacion_hint">Selecciona una ubicación</string>
+    <string name="equipo_form_estado">Estado</string>
+    <string name="equipo_form_guardar">Guardar Equipo</string>
+    <string name="equipo_form_actualizar">Actualizar Equipo</string>
+    <string name="equipos_filtro_operativos">Operativos</string>
+
+    <string name="equipo_detalle_ver_historial">Ver historial completo →</string>
+
+</resources>

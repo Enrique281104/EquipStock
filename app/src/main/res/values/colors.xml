@@ -19,4 +19,11 @@
     <color name="search_background">#FFFFFF</color>
     <color name="icon_tile">#DCEBFA</color>
 
+    <color name="estado_operativo_bg">#D6F5E3</color>
+    <color name="estado_operativo_text">#0E7A4F</color>
+    <color name="estado_mantenimiento_bg">#FFE8CC</color>
+    <color name="estado_mantenimiento_text">#B35C00</color>
+    <color name="estado_inactivo_bg">#FFD6D6</color>
+    <color name="estado_inactivo_text">#B3261E</color>
+
 </resources>

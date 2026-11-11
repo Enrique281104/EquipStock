@@ -14,6 +14,10 @@ public interface UbicacionDao {
             + "AND nombre LIKE '%' || :texto || '%' ORDER BY nombre COLLATE NOCASE")
     LiveData<List<UbicacionEntity>> buscar(String texto);
 
+    @Query("SELECT * FROM ubicaciones WHERE syncStatus <> 'PENDING_DELETE' "
+            + "ORDER BY nombre COLLATE NOCASE")
+    LiveData<List<UbicacionEntity>> todas();
+
     @Query("SELECT * FROM ubicaciones WHERE localId = :id")
     UbicacionEntity porLocalId(long id);
 
@@ -34,4 +38,9 @@ public interface UbicacionDao {
 
     @Query("DELETE FROM ubicaciones WHERE localId = :id")
     void borrar(long id);
+
+    @Query("UPDATE ubicaciones SET equiposVinculados = (SELECT COUNT(*) FROM equipos "
+            + "WHERE equipos.ubicacionLocalId = ubicaciones.localId "
+            + "AND equipos.syncStatus <> 'PENDING_DELETE')")
+    void recalcularConteo();
 }

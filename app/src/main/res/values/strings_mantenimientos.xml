@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mantenimientos_titulo">Mantenimientos</string>
+    <string name="mantenimientos_buscar">Buscar por nombre, serie o tag</string>
+    <string name="mantenimientos_vacio">No hay mantenimientos para mostrar</string>
+    <string name="mantenimientos_agregar">Agregar mantenimiento</string>
+    <string name="mantenimientos_filtro_todos">Todos</string>
+    <string name="mantenimientos_filtro_completado">Completado</string>
+    <string name="mantenimientos_filtro_proceso">En Proceso</string>
+    <string name="mantenimientos_filtro_vencido">Vencido</string>
+    <string name="mantenimientos_filtros_activos">Filtros Activos:</string>
+    <string name="mantenimientos_filtrar_tecnico">Filtrar por técnico</string>
+    <string name="mantenimiento_detalle_titulo">Detalle de Registro</string>
+    <string name="mantenimiento_editar">Editar mantenimiento</string>
+    <string name="mantenimiento_detalle_info">Información del Mantenimiento</string>
+    <string name="mantenimiento_tipo_registro">Tipo de Registro</string>
+    <string name="mantenimiento_estado">Estado</string>
+    <string name="mantenimiento_fecha">Fecha Programada</string>
+    <string name="mantenimiento_tecnico">Técnico Asignado</string>
+    <string name="mantenimiento_descripcion">Descripción del Trabajo</string>
+    <string name="mantenimiento_observaciones">Observaciones</string>
+    <string name="mantenimiento_actualizar_estado">Actualizar Estado</string>
+    <string name="mantenimiento_sin_sincronizar">Sin sincronizar</string>
+
+    <string name="mantenimiento_form_nuevo">Nuevo Mantenimiento</string>
+    <string name="mantenimiento_form_editar">Editar Mantenimiento</string>
+    <string name="mantenimiento_form_activo">Búsqueda de Activo (Código / Nº Serie)</string>
+    <string name="mantenimiento_form_activo_hint">Ej: CPT-042</string>
+    <string name="mantenimiento_form_tipo">Tipo de Registro</string>
+    <string name="mantenimiento_form_preventivo">Preventivo</string>
+    <string name="mantenimiento_form_correctivo">Correctivo</string>
+    <string name="mantenimiento_form_incidencia">Incidencia</string>
+    <string name="mantenimiento_form_tecnico">Técnico Asignado</string>
+    <string name="mantenimiento_form_tecnico_hint">Selecciona un técnico</string>
+    <string name="mantenimiento_form_fecha">Fecha</string>
+    <string name="mantenimiento_form_estado">Estado de la Tarea</string>
+    <string name="mantenimiento_form_descripcion">Descripción del trabajo</string>
+    <string name="mantenimiento_form_descripcion_hint">Describe el trabajo a realizar</string>
+    <string name="mantenimiento_form_observaciones">Observaciones</string>
+    <string name="mantenimiento_form_observaciones_hint">Notas adicionales (opcional)</string>
+    <string name="mantenimiento_form_guardar">Guardar Mantenimiento</string>
+    <string name="mantenimiento_form_actualizar">Actualizar Mantenimiento</string>
+
+</resources>

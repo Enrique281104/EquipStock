@@ -54,4 +54,47 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="EsChip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_bg</item>
+        <item name="android:textColor">@color/chip_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="checkedIconVisible">false</item>
+    </style>
+
+    <style name="EsDropdown" parent="Widget.Material3.AutoCompleteTextView.FilledBox">
+        <item name="android:textColor">@color/text_on_field</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="EsChipOperativo" parent="EsChip">
+        <item name="chipBackgroundColor">@color/estado_operativo_bg</item>
+        <item name="android:textColor">@color/estado_operativo_text</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_operativo</item>
+    </style>
+
+    <style name="EsChipMantenimiento" parent="EsChip">
+        <item name="chipBackgroundColor">@color/estado_mantenimiento_bg</item>
+        <item name="android:textColor">@color/estado_mantenimiento_text</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_mantenimiento</item>
+    </style>
+
+    <style name="EsChipInactivo" parent="EsChip">
+        <item name="chipBackgroundColor">@color/estado_inactivo_bg</item>
+        <item name="android:textColor">@color/estado_inactivo_text</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_inactivo</item>
+    </style>
+
+    <style name="EsChipActivo" parent="Widget.Material3.Chip.Input">
+        <item name="chipBackgroundColor">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="closeIconTint">@color/on_primary</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

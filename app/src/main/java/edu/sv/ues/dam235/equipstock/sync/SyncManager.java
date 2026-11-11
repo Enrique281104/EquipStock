@@ -6,10 +6,15 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import edu.sv.ues.dam235.equipstock.database.AppDatabase;
 import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
+import edu.sv.ues.dam235.equipstock.repositories.EquipoRepository;
+import edu.sv.ues.dam235.equipstock.repositories.MantenimientoRepository;
+import edu.sv.ues.dam235.equipstock.repositories.TecnicoRepository;
 import edu.sv.ues.dam235.equipstock.repositories.UbicacionRepository;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
 import java.io.IOException;
@@ -42,6 +47,9 @@ public class SyncManager {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
 
+    private static final String MSG_SIN_CONEXION =
+            "Sin conexión. Los cambios se enviarán cuando haya internet.";
+
     private SyncManager(Context context) {
         appContext = context;
 
@@ -51,8 +59,9 @@ public class SyncManager {
         // ORDEN IMPORTANTE: primero lo que otros módulos referencian
         modulos.add(CategoriaRepository.get(context));
         modulos.add(UbicacionRepository.get(context));
-        // modulos.add(EquipoRepository.get(context));
-        // modulos.add(MantenimientoRepository.get(context));
+        modulos.add(EquipoRepository.get(context));
+        modulos.add(TecnicoRepository.get(context));
+        modulos.add(MantenimientoRepository.get(context));
     }
 
     private void sincronizarAlVolverInternet(Context context) {
@@ -79,7 +88,7 @@ public class SyncManager {
                     if (error != null && primerError == null) primerError = error;
                 }
             } catch (IOException e) {
-                primerError = "Sin conexión. Los cambios se enviarán cuando haya internet.";
+                primerError = MSG_SIN_CONEXION;
             }
             if (primerError == null) {
                 prefs.edit().putLong(KEY_ULTIMA, System.currentTimeMillis()).apply();
@@ -94,9 +103,14 @@ public class SyncManager {
     }
 
     private void notificar(Resultado callback, String error) {
-        if (callback != null) {
-            main.post(() -> callback.alTerminar(error == null, error));
-        }
+        main.post(() -> {
+            if (callback != null) {
+                callback.alTerminar(error == null, error);
+            } else if (error != null && !MSG_SIN_CONEXION.equals(error)) {
+                // sincronización automática: nadie esperaba el resultado, se avisa igual
+                Toast.makeText(appContext, error, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**

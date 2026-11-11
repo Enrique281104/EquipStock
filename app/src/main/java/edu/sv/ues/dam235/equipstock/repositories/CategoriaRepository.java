@@ -57,6 +57,10 @@ public class CategoriaRepository implements Sincronizable {
         return dao.buscar(texto);
     }
 
+    public LiveData<List<CategoriaEntity>> todas() {
+        return dao.todas();
+    }
+
     // ---------- Escritura local (instantánea) + intento de sincronizar ----------
 
     public void crear(String nombre, String descripcion, String icono, Resultado cb) {
