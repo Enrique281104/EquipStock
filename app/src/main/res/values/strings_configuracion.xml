@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="configuracion_titulo">Configuración</string>
+    <string name="config_modo_oscuro">Modo Oscuro</string>
+    <string name="config_estado_conexion">Estado De Conexión</string>
+    <string name="config_en_linea">En línea</string>
+    <string name="config_sin_conexion">Sin conexión</string>
+    <string name="config_ultima_sync">Última Sincronización</string>
+    <string name="config_nunca">Nunca</string>
+    <string name="config_pendientes">Cambios pendientes</string>
+    <string name="config_ejecutar_sync">Ejecutar Sincronización</string>
+    <string name="config_sync_ok">Sincronización completada</string>
+    <string name="config_notificaciones">Notificaciones De Mantenimiento</string>
+    <string name="config_notif_permiso">Activa las notificaciones de EquipStock en los ajustes del teléfono.</string>
+</resources>

@@ -1,6 +1,8 @@
 package edu.sv.ues.dam235.equipstock.api;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
@@ -21,7 +23,11 @@ public class ApiClient {
             SessionManager session = new SessionManager(appContext);
 
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            boolean depurable = (appContext.getApplicationInfo().flags
+                    & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+            logging.setLevel(depurable
+                    ? HttpLoggingInterceptor.Level.BASIC      // solo la dirección y el código de respuesta
+                    : HttpLoggingInterceptor.Level.NONE);
 
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(30, TimeUnit.SECONDS)

@@ -14,6 +14,9 @@ public interface CategoriaDao {
             + "AND nombre LIKE '%' || :texto || '%' ORDER BY nombre COLLATE NOCASE")
     LiveData<List<CategoriaEntity>> buscar(String texto);
 
+    @Query("SELECT COUNT(*) FROM categorias WHERE syncStatus <> 'SYNCED'")
+    LiveData<Integer> contarPendientes();
+
     @Query("SELECT * FROM categorias WHERE syncStatus <> 'PENDING_DELETE' "
             + "ORDER BY nombre COLLATE NOCASE")
     LiveData<List<CategoriaEntity>> todas();

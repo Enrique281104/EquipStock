@@ -16,4 +16,8 @@ public class Usuario {
     public String getRol() { return rol; }
     public String getFotoUrl() { return fotoUrl; }
     public Boolean getActivo() { return activo; }
+
+    private Long fotoActualizada;
+
+    public Long getFotoActualizada() { return fotoActualizada; }
 }

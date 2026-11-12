@@ -62,6 +62,9 @@ public interface MantenimientoDao {
             + "ORDER BY fechaProgramada DESC, localId DESC LIMIT :limite")
     LiveData<List<MantenimientoEntity>> ultimosDeEquipo(long equipoLocalId, int limite);
 
+    @Query("SELECT COUNT(*) FROM mantenimientos WHERE syncStatus <> 'SYNCED'")
+    LiveData<Integer> contarPendientes();
+
     @Query("SELECT * FROM mantenimientos WHERE localId = :id")
     MantenimientoEntity porLocalId(long id);
 
@@ -73,6 +76,21 @@ public interface MantenimientoDao {
 
     @Query("SELECT * FROM mantenimientos WHERE syncStatus = 'SYNCED' AND serverId IS NOT NULL")
     List<MantenimientoEntity> sincronizados();
+
+    @Query("SELECT COUNT(*) FROM mantenimientos WHERE notificar = 1 "
+            + "AND tecnicoId = :tecnicoId AND estado = 'EN_PROCESO'")
+    int contarNuevosPara(long tecnicoId);
+
+    @Query("UPDATE mantenimientos SET notificar = 0 WHERE notificar = 1")
+    void limpiarNuevos();
+
+    @Query("SELECT COUNT(*) FROM mantenimientos WHERE estado = 'EN_PROCESO' "
+            + "AND fechaProgramada < :hoy AND (:tecnicoId = 0 OR tecnicoId = :tecnicoId)")
+    int contarVencidosAhora(long tecnicoId, String hoy);
+
+    @Query("SELECT COUNT(*) FROM mantenimientos WHERE estado = 'EN_PROCESO' "
+            + "AND fechaProgramada = :hoy AND (:tecnicoId = 0 OR tecnicoId = :tecnicoId)")
+    int contarDeHoyAhora(long tecnicoId, String hoy);
 
     @Insert
     long insertar(MantenimientoEntity m);

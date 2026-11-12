@@ -60,4 +60,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
     implementation("androidx.lifecycle:lifecycle-livedata:2.8.7")
 
+    implementation("androidx.work:work-runtime:2.9.1")
+
 }

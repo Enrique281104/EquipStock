@@ -14,6 +14,9 @@ public interface UbicacionDao {
             + "AND nombre LIKE '%' || :texto || '%' ORDER BY nombre COLLATE NOCASE")
     LiveData<List<UbicacionEntity>> buscar(String texto);
 
+    @Query("SELECT COUNT(*) FROM ubicaciones WHERE syncStatus <> 'SYNCED'")
+    LiveData<Integer> contarPendientes();
+
     @Query("SELECT * FROM ubicaciones WHERE syncStatus <> 'PENDING_DELETE' "
             + "ORDER BY nombre COLLATE NOCASE")
     LiveData<List<UbicacionEntity>> todas();

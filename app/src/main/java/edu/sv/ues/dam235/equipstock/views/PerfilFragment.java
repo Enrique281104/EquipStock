@@ -2,6 +2,7 @@ package edu.sv.ues.dam235.equipstock.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import edu.sv.ues.dam235.equipstock.R;
+import edu.sv.ues.dam235.equipstock.sync.PendientesLiveData;
 import edu.sv.ues.dam235.equipstock.sync.SyncManager;
+import edu.sv.ues.dam235.equipstock.utils.FotoUtil;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
 import edu.sv.ues.dam235.equipstock.views.auth.LoginActivity;
 import edu.sv.ues.dam235.equipstock.views.locations.UbicacionesFragment;
 
 public class PerfilFragment extends Fragment {
+
+    private int pendientes = 0;
 
     @Nullable
     @Override
@@ -44,13 +49,27 @@ public class PerfilFragment extends Fragment {
 
         String nombre = session.getNombre();
         tvInicial.setText(nombre.isEmpty() ? "?" : nombre.substring(0, 1).toUpperCase());
+        ImageView ivFoto = view.findViewById(R.id.ivFoto);
+        Bitmap foto = FotoUtil.cargar(requireContext());
+        if (foto != null) {
+            ivFoto.setImageBitmap(foto);
+            ivFoto.setVisibility(View.VISIBLE);
+            tvInicial.setVisibility(View.GONE);
+        }
         tvNombre.setText(nombre);
         tvEmail.setText(session.getEmail());
         tvRol.setText(session.esAdmin() ? "Administrador" : "Técnico");
 
-        agregarOpcion(menu, R.drawable.ic_person, "Editar Perfil", v -> proximamente());
-        agregarOpcion(menu, R.drawable.ic_security, "Seguridad", v -> proximamente());
-        agregarOpcion(menu, R.drawable.ic_settings, "Configuración", v -> proximamente());
+        // Se mantiene actualizado el número de cambios sin enviar, para avisar al cerrar sesión
+        new PendientesLiveData(requireContext()).observe(getViewLifecycleOwner(),
+                n -> pendientes = n == null ? 0 : n);
+
+        agregarOpcion(menu, R.drawable.ic_person, "Editar Perfil",
+                v -> abrir(new EditarPerfilFragment()));
+        agregarOpcion(menu, R.drawable.ic_security, "Seguridad",
+                v -> abrir(new SeguridadFragment()));
+        agregarOpcion(menu, R.drawable.ic_settings, "Configuración",
+                v -> abrir(new ConfiguracionFragment()));
         if (session.esAdmin()) {
             agregarOpcion(menu, R.drawable.ic_location, "Ubicaciones",
                     v -> abrir(new UbicacionesFragment()));
@@ -75,15 +94,11 @@ public class PerfilFragment extends Fragment {
                 .commit();
     }
 
-    private void proximamente() {
-        Toast.makeText(requireContext(), "Próximamente", Toast.LENGTH_SHORT).show();
-    }
 
     private void confirmarCierreDeSesion() {
         Context app = requireContext().getApplicationContext();
-        new MaterialAlertDialogBuilder(requireContext())
+        MaterialAlertDialogBuilder dialogo = new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Cerrar sesión")
-                .setMessage("Si tienes cambios sin sincronizar, se perderán.")
                 .setNegativeButton("Cancelar", null)
                 .setPositiveButton("Cerrar sesión", (d, w) ->
                         SyncManager.get(app).cerrarSesion(() -> {
@@ -91,7 +106,19 @@ public class PerfilFragment extends Fragment {
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             app.startActivity(i);
-                        }))
-                .show();
+                        }));
+
+        if (pendientes > 0) {
+            dialogo.setMessage("Tienes " + pendientes + " cambio(s) sin sincronizar. "
+                            + "Si cierras sesión, se perderán.")
+                    .setNeutralButton("Sincronizar ahora", (d, w) ->
+                            SyncManager.get(app).sincronizar((ok, mensaje) ->
+                                    Toast.makeText(app,
+                                            ok ? "Sincronización completada" : mensaje,
+                                            Toast.LENGTH_LONG).show()));
+        } else {
+            dialogo.setMessage("¿Seguro que quieres cerrar sesión?");
+        }
+        dialogo.show();
     }
 }

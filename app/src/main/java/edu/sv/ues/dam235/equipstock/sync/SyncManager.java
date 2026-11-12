@@ -7,26 +7,32 @@ import android.net.Network;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import edu.sv.ues.dam235.equipstock.database.AppDatabase;
 import edu.sv.ues.dam235.equipstock.repositories.CategoriaRepository;
 import edu.sv.ues.dam235.equipstock.repositories.EquipoRepository;
 import edu.sv.ues.dam235.equipstock.repositories.MantenimientoRepository;
+import edu.sv.ues.dam235.equipstock.repositories.PerfilRepository;
 import edu.sv.ues.dam235.equipstock.repositories.TecnicoRepository;
 import edu.sv.ues.dam235.equipstock.repositories.UbicacionRepository;
+import edu.sv.ues.dam235.equipstock.utils.AjustesUtil;
+import edu.sv.ues.dam235.equipstock.utils.FotoUtil;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class SyncManager {
 
     private static final String PREFS = "equipstock_sync";
     private static final String KEY_ULTIMA = "ultima_sync";
+    private static final String MSG_SIN_CONEXION =
+            "Sin conexión. Los cambios se enviarán cuando haya internet.";
 
     private static SyncManager instance;
 
@@ -38,23 +44,19 @@ public class SyncManager {
         return instance;
     }
 
+    private final Context appContext;
     private final SessionManager session;
     private final SharedPreferences prefs;
-
-    private final Context appContext;
-
+    private final MutableLiveData<Long> ultimaSync;
     private final List<Sincronizable> modulos = new ArrayList<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
 
-    private static final String MSG_SIN_CONEXION =
-            "Sin conexión. Los cambios se enviarán cuando haya internet.";
-
     private SyncManager(Context context) {
         appContext = context;
-
         session = new SessionManager(context);
         prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        ultimaSync = new MutableLiveData<>(prefs.getLong(KEY_ULTIMA, 0));
 
         // ORDEN IMPORTANTE: primero lo que otros módulos referencian
         modulos.add(CategoriaRepository.get(context));
@@ -62,6 +64,7 @@ public class SyncManager {
         modulos.add(EquipoRepository.get(context));
         modulos.add(TecnicoRepository.get(context));
         modulos.add(MantenimientoRepository.get(context));
+        modulos.add(PerfilRepository.get(context));
     }
 
     private void sincronizarAlVolverInternet(Context context) {
@@ -75,8 +78,8 @@ public class SyncManager {
         });
     }
 
-    public void sincronizar(Resultado callback) {
-        executor.execute(() -> {
+    private Runnable tarea(Resultado callback) {
+        return () -> {
             if (!session.haySesion()) {
                 notificar(callback, null);
                 return;
@@ -91,15 +94,45 @@ public class SyncManager {
                 primerError = MSG_SIN_CONEXION;
             }
             if (primerError == null) {
-                prefs.edit().putLong(KEY_ULTIMA, System.currentTimeMillis()).apply();
+                long ahora = System.currentTimeMillis();
+                prefs.edit().putLong(KEY_ULTIMA, ahora).apply();
+                ultimaSync.postValue(ahora);
+                Notificador.evaluar(appContext);
             }
             notificar(callback, primerError);
-        });
+        };
+    }
+
+    public void sincronizar(Resultado callback) {
+        executor.execute(tarea(callback));
+    }
+
+    /** Para tareas en segundo plano: sincroniza y espera a que termine. */
+    public void sincronizarYEsperar() throws Exception {
+        executor.submit(tarea(null)).get(3, TimeUnit.MINUTES);
+    }
+
+    public LiveData<Long> ultimaSincronizacion() {
+        return ultimaSync;
     }
 
     /** Milisegundos de la última sincronización completa, o 0 si nunca hubo. */
     public long getUltimaSincronizacion() {
         return prefs.getLong(KEY_ULTIMA, 0);
+    }
+
+    /** Cierra la sesión y borra los datos locales, tras esperar a que termine cualquier sincronización en curso. */
+    public void cerrarSesion(Runnable alTerminar) {
+        executor.execute(() -> {
+            session.cerrarSesion();
+            AppDatabase.get(appContext).clearAllTables();
+            prefs.edit().clear().apply();
+            ultimaSync.postValue(0L);
+            FotoUtil.borrar(appContext);
+            AjustesUtil.reiniciarAvisos(appContext);
+            SyncScheduler.cancelar(appContext);
+            main.post(alTerminar);
+        });
     }
 
     private void notificar(Resultado callback, String error) {
@@ -112,17 +145,4 @@ public class SyncManager {
             }
         });
     }
-
-    /**
-     * Cierra la sesión y borra los datos locales,
-     * tras esperar a que termine cualquier sincronización en curso.
-     */
-    public void cerrarSesion(Runnable alTerminar) {
-        executor.execute(() -> {
-            session.cerrarSesion();
-            AppDatabase.get(appContext).clearAllTables();
-            main.post(alTerminar);
-        });
-    }
-
 }

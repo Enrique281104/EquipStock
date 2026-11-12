@@ -188,6 +188,9 @@ public class MantenimientoRepository implements Sincronizable {
         List<MantenimientoDto> remotos = r.body();
         Set<Long> idsRemotos = new HashSet<>();
 
+        // Solo se marcan como nuevos los que llegan después de la primera sincronización
+        final boolean avisar = SyncManager.get(appContext).getUltimaSincronizacion() > 0;
+
         db.runInTransaction(() -> {
             for (MantenimientoDto d : remotos) {
                 idsRemotos.add(d.getId());
@@ -200,6 +203,9 @@ public class MantenimientoRepository implements Sincronizable {
                     copiar(d, nuevo, equipoLocal);
                     nuevo.serverId = d.getId();
                     nuevo.syncStatus = SyncStatus.SYNCED;
+
+                    nuevo.notificar = avisar ? 1 : 0;
+
                     dao.insertar(nuevo);
                 } else if (SyncStatus.SYNCED.equals(local.syncStatus)) {
                     copiar(d, local, equipoLocal);

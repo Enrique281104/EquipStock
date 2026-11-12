@@ -19,4 +19,5 @@ public class MantenimientoEntity {
     public String observaciones;
     public String syncStatus;
     public int version;
+    public int notificar;          // 1 = llegó del servidor y falta avisar
 }

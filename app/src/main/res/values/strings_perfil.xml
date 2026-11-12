@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="perfil_titulo">Perfil</string>
+    <string name="seguridad_titulo">Seguridad</string>
+    <string name="seguridad_actual">Contraseña Actual</string>
+    <string name="seguridad_nueva">Nueva Contraseña</string>
+    <string name="seguridad_confirmar">Confirmar Nueva Contraseña</string>
+    <string name="seguridad_actualizar">Actualizar Contraseña</string>
+    <string name="editar_perfil_titulo">Editar Perfil</string>
+    <string name="editar_perfil_nombre">Nombre Completo</string>
+    <string name="editar_perfil_telefono">Teléfono</string>
+    <string name="editar_perfil_telefono_hint">+503 7000-0000</string>
+    <string name="editar_perfil_correo">Correo Electrónico</string>
+    <string name="editar_perfil_correo_ayuda">El correo es tu usuario de acceso y no se puede cambiar.</string>
+    <string name="editar_perfil_guardar">Guardar Cambios</string>
+
+    <string name="foto_cambiar_titulo">Foto de perfil</string>
+    <string name="foto_cambiar_desc">Cambiar foto de perfil</string>
 </resources>

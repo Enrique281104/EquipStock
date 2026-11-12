@@ -36,16 +36,30 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <TextView
-                    android:id="@+id/tvInicial"
+                <FrameLayout
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_circle_primary"
-                    android:gravity="center"
-                    android:textColor="@color/on_primary"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tvInicial"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_circle_primary"
+                        android:gravity="center"
+                        android:textColor="@color/on_primary"
+                        android:textSize="36sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivFoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        app:shapeAppearanceOverlay="@style/ShapeCircle" />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tvNombre"
