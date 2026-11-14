@@ -1,0 +1,96 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="58dp"
+    android:height="58dp"
+    android:viewportWidth="58"
+    android:viewportHeight="58">
+  <path
+      android:pathData="M12,0L46,0A12,12 0,0 1,58 12L58,46A12,12 0,0 1,46 58L12,58A12,12 0,0 1,0 46L0,12A12,12 0,0 1,12 0z"
+      android:fillColor="#E4F1FF"/>
+  <path
+      android:pathData="M44.529,20.091H13.471L15.501,7.458C15.501,6.597 16.199,5.895 17.065,5.895H41.067C41.928,5.895 42.63,6.593 42.63,7.458L44.529,20.091Z"
+      android:fillColor="#757575"/>
+  <path
+      android:pathData="M42.113,18.986H15.887L17.599,8.315C17.599,7.585 18.188,6.996 18.918,6.996H39.191C39.92,6.996 40.509,7.585 40.509,8.315L42.113,18.986Z"
+      android:fillColor="#424242"/>
+  <path
+      android:pathData="M42.838,13.553H15.211C14.097,13.553 13.145,14.355 12.955,15.451L12.144,20.11H45.847L45.09,15.474C44.918,14.364 43.958,13.553 42.838,13.553Z"
+      android:fillColor="#424242"/>
+  <path
+      android:pathData="M18.048,17.554H41.017C41.017,17.554 42.236,9.398 40.21,1.935H17.241C18.746,8.945 18.048,17.554 18.048,17.554Z">
+    <aapt:attr name="android:fillColor">
+      <gradient
+          android:startX="29.31"
+          android:startY="13.969"
+          android:endX="29.31"
+          android:endY="0.969"
+          android:type="linear">
+        <item android:offset="0.566" android:color="#FFEEEEEE"/>
+        <item android:offset="1" android:color="#FFE0E0E0"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:pathData="M17.676,19.738L40.808,19.448L41.144,16.725H18.202L17.676,19.738Z"
+      android:fillColor="#BDBDBD"/>
+  <path
+      android:pathData="M53.994,41.135H6.743C4.205,41.135 3.901,36.504 4.028,33.572C4.06,32.883 4.178,32.208 4.377,31.546L7.508,21.011C7.508,21.011 8.383,17.903 11.156,17.903H46.259C48.403,17.903 49.268,20.309 49.268,20.309L53.346,30.758C53.727,31.737 53.931,32.779 53.936,33.835L53.994,41.135Z"
+      android:fillColor="#CFD8DC"/>
+  <path
+      android:pathData="M50.247,50.374H7.753C5.691,50.374 4.019,48.702 4.019,46.64V34.46C4.019,32.874 5.306,31.587 6.892,31.587H51.108C52.694,31.587 53.981,32.874 53.981,34.46V46.64C53.981,48.702 52.309,50.374 50.247,50.374Z"
+      android:fillColor="#90A4AE"/>
+  <path
+      android:pathData="M41.733,17.903H16.489L12.502,31.587V34.877C12.502,36.495 13.816,37.809 15.433,37.809H42.576C44.193,37.809 45.507,36.495 45.507,34.877V31.587L41.733,17.903Z"
+      android:fillColor="#607D8B"/>
+  <path
+      android:pathData="M14.283,29.421L17.241,17.903H40.999L43.804,29.458C44.18,31.071 43.083,31.587 41.588,31.587H16.489C14.98,31.587 13.884,31.048 14.283,29.421Z"
+      android:fillColor="#90A4AE"/>
+  <path
+      android:pathData="M49.812,37.741C50.675,37.741 51.375,37.041 51.375,36.178C51.375,35.314 50.675,34.614 49.812,34.614C48.949,34.614 48.249,35.314 48.249,36.178C48.249,37.041 48.949,37.741 49.812,37.741Z"
+      android:fillColor="#424242"/>
+  <path
+      android:pathData="M49.812,37.473C50.675,37.473 51.375,36.773 51.375,35.91C51.375,35.047 50.675,34.347 49.812,34.347C48.949,34.347 48.249,35.047 48.249,35.91C48.249,36.773 48.949,37.473 49.812,37.473Z"
+      android:fillColor="#99D45B"/>
+  <path
+      android:pathData="M48.14,53.736L44.8,42.729H13.2L9.86,53.736C9.538,54.914 10.676,56.06 12.13,56.06H45.874C47.324,56.065 48.466,54.919 48.14,53.736Z"
+      android:fillColor="#616161"/>
+  <path
+      android:pathData="M43.727,45.743C43.559,44.927 44.221,44.678 44.443,44.61C44.964,44.447 45.394,44.705 45.394,44.705L44.832,42.729H13.168L12.606,44.705C12.606,44.705 13.036,44.447 13.557,44.61C13.78,44.678 14.441,44.927 14.274,45.743C14.128,46.454 13.549,49.223 13.549,49.223C13.299,50.36 13.15,51.52 12.946,52.667C12.946,53.319 13.544,53.845 14.283,53.845H43.708C44.447,53.845 45.045,53.319 45.045,52.667C44.846,51.52 44.692,50.36 44.443,49.223C44.447,49.223 43.872,46.454 43.727,45.743Z"
+      android:fillColor="#212121"/>
+  <path
+      android:pathData="M25.103,48.072C25.103,48.072 16.018,51.525 27.047,51.525C38.076,51.525 42.793,48.502 42.793,48.502L40.242,46.028L27.523,47.211L25.103,48.072Z"
+      android:fillColor="#BDBDBD"/>
+  <path
+      android:pathData="M42.168,44.221H16.797L14.64,51.403C14.64,51.403 21.841,51.521 27.052,51.521C32.263,51.521 38.864,47.288 38.864,47.288C38.864,47.288 43.174,49.862 42.934,47.95C42.653,45.766 42.168,44.221 42.168,44.221Z"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="M42.363,44.923L42.023,43.563L16.942,43.659L16.593,44.923H42.363Z"
+      android:fillColor="#BDBDBD"/>
+  <path
+      android:pathData="M37.016,48.358H17.418L17.278,48.824H36.091L37.016,48.358ZM18.012,46.377L17.871,46.844H40.596C40.573,46.686 40.55,46.527 40.528,46.377H18.012Z"
+      android:fillColor="#9E9E9E"/>
+  <path
+      android:pathData="M40.138,44.465H18.587L18.447,44.932H40.251C40.21,44.755 40.174,44.601 40.138,44.465Z"
+      android:fillColor="#757575"/>
+  <path
+      android:pathData="M30.341,38.742H27.659C27.042,38.742 26.54,38.243 26.54,37.623V37.442C26.54,36.825 27.038,36.322 27.659,36.322H30.341C30.958,36.322 31.461,36.821 31.461,37.442V37.623C31.461,38.243 30.958,38.742 30.341,38.742Z"
+      android:fillColor="#607D8B"/>
+  <path
+      android:pathData="M42.535,40.98H15.465C14.133,40.98 13.054,42.059 13.054,43.391H44.941C44.945,42.059 43.862,40.98 42.535,40.98Z"
+      android:fillColor="#212121"/>
+</vector>
