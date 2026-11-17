@@ -116,6 +116,18 @@
                     app:backgroundTint="@color/primary"
                     app:cornerRadius="28dp" />
 
+                <TextView
+                    android:id="@+id/txtOlvidaste"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:padding="4dp"
+                    android:text="@string/bienvenida_olvidaste"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRegistro"
                     android:layout_width="match_parent"

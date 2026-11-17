@@ -50,7 +50,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <activity
+            android:name=".views.auth.RecuperarPasswordActivity"
+            android:exported="false" />
 
+        <activity
+            android:name=".views.auth.RestablecerPasswordActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -50,8 +50,8 @@ public class BienvenidaActivity extends AppCompatActivity {
         findViewById(R.id.btnRegistrarse).setOnClickListener(v ->
                 startActivity(new Intent(this, RegistroActivity.class)));
 
-        // TODO: abrir Recuperar contraseña cuando esté hecha
-        findViewById(R.id.txtOlvidaste).setOnClickListener(v -> { });
+        findViewById(R.id.txtOlvidaste).setOnClickListener(v ->
+                startActivity(new Intent(this, RecuperarPasswordActivity.class)));
     }
 
     @Override

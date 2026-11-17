@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pantalla 2.2: pedir el código -->
+    <string name="recuperar_titulo">Recupera Tu Contraseña</string>
+    <string name="recuperar_pregunta">¿Quieres Recuperar Tu Contraseña?</string>
+    <string name="recuperar_descripcion">Ingresa el correo electrónico asociado a tu cuenta para recibir un código de verificación.</string>
+    <string name="recuperar_email_label">Correo Electrónico</string>
+    <string name="recuperar_btn_enviar">Enviar Código</string>
+
+    <!-- Pantalla siguiente: código y nueva contraseña -->
+    <string name="restablecer_titulo">Nueva Contraseña</string>
+    <string name="restablecer_descripcion">Ingresa el código que enviamos a tu correo y tu nueva contraseña.</string>
+    <string name="restablecer_codigo_label">Código de verificación</string>
+    <string name="restablecer_password_label">Nueva Contraseña</string>
+    <string name="restablecer_confirmar_label">Confirmar Nueva Contraseña</string>
+    <string name="restablecer_btn">Cambiar Contraseña</string>
+
+    <!-- Mensajes -->
+    <string name="recuperar_error_email">Ingresa un correo válido</string>
+    <string name="recuperar_codigo_enviado">Te enviamos un código a tu correo</string>
+    <string name="recuperar_error_envio">No se pudo enviar el código. Intenta más tarde.</string>
+    <string name="recuperar_sin_conexion">Sin conexión. Revisa tu internet.</string>
+    <string name="restablecer_error_codigo">El código debe tener 6 dígitos</string>
+    <string name="restablecer_error_longitud">Mínimo 8 caracteres</string>
+    <string name="restablecer_error_coinciden">Las contraseñas no coinciden</string>
+    <string name="restablecer_exito">Contraseña actualizada. Inicia sesión.</string>
+    <string name="restablecer_error">Código incorrecto o vencido</string>
+</resources>
