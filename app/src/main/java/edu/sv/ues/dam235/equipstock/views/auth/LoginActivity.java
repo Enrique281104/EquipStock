@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_login);
+        findViewById(R.id.txtOlvidaste).setOnClickListener(v ->
+                startActivity(new Intent(this, RecuperarPasswordActivity.class)));
 
         tilEmail = findViewById(R.id.tilEmail);
         tilPassword = findViewById(R.id.tilPassword);

@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import edu.sv.ues.dam235.equipstock.sync.SyncManager;
 import edu.sv.ues.dam235.equipstock.sync.SyncScheduler;
 import edu.sv.ues.dam235.equipstock.utils.AjustesUtil;
+import edu.sv.ues.dam235.equipstock.utils.SesionExpirada;
 import edu.sv.ues.dam235.equipstock.utils.SessionManager;
 import edu.sv.ues.dam235.equipstock.views.PerfilFragment;
 import edu.sv.ues.dam235.equipstock.views.auth.LoginActivity;
@@ -68,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
         pedirPermisoDeNotificaciones();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Al volver a la app, revisar si el token venció mientras estaba en segundo plano
+        SessionManager session = new SessionManager(this);
+        if (session.getToken() != null && !session.haySesion()) {
+            SesionExpirada.manejar(this);
+        }
+    }
     private void pedirPermisoDeNotificaciones() {
         if (Build.VERSION.SDK_INT < 33) return;
         if (!AjustesUtil.notificacionesHabilitadas(this) || AjustesUtil.permisoYaPedido(this)) return;
@@ -77,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         AjustesUtil.marcarPermisoPedido(this);
         pedirPermisoNotificaciones.launch(Manifest.permission.POST_NOTIFICATIONS);
     }
+
 
     private Fragment fragmentPara(int id) {
         if (id == R.id.nav_equipos) return new EquiposFragment();

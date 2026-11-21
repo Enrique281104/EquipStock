@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bienvenida_subtitulo">Control y gestión integral de equipos e incidencias</string>
+    <string name="bienvenida_iniciar_sesion">Inicia Sesión</string>
+    <string name="bienvenida_registrarse">Regístrate</string>
+    <string name="bienvenida_olvidaste">¿Olvidaste la contraseña?</string>
+</resources>

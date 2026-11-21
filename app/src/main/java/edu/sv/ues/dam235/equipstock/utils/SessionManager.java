@@ -42,7 +42,10 @@ public class SessionManager {
     public String getEmail() { return prefs.getString(KEY_EMAIL, ""); }
     public String getRol() { return prefs.getString(KEY_ROL, ""); }
 
-    public boolean haySesion() { return getToken() != null; }
+    public boolean haySesion() {
+        String token = getToken();
+        return token != null && !JwtUtils.estaVencido(token);
+    }
 
     // para mostrar u ocultar botones segun el rol
     public boolean esAdmin() { return "ADMIN".equals(getRol()); }

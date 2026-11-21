@@ -16,14 +16,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquipStock">
+
+        <!-- Pantalla de bienvenida: es la que abre la app -->
         <activity
-            android:name=".views.auth.LoginActivity"
-            android:exported="true">
+            android:name=".views.auth.BienvenidaActivity"
+            android:exported="true"
+            android:theme="@style/Theme.EquipStock.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".views.auth.LoginActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -43,7 +50,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <activity
+            android:name=".views.auth.RecuperarPasswordActivity"
+            android:exported="false" />
 
+        <activity
+            android:name=".views.auth.RestablecerPasswordActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
