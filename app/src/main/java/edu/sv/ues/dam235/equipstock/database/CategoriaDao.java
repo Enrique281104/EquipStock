@@ -33,6 +33,10 @@ public interface CategoriaDao {
     @Query("SELECT * FROM categorias WHERE syncStatus = 'SYNCED' AND serverId IS NOT NULL")
     List<CategoriaEntity> sincronizadas();
 
+    @Query("SELECT COUNT(*) FROM categorias WHERE syncStatus <> 'PENDING_DELETE' "
+            + "AND LOWER(TRIM(nombre)) = LOWER(TRIM(:nombre)) AND localId <> :exceptoLocalId")
+    int contarNombre(String nombre, long exceptoLocalId);
+
     @Insert
     long insertar(CategoriaEntity c);
 

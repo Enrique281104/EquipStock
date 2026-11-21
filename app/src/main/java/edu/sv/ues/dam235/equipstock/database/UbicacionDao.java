@@ -33,6 +33,10 @@ public interface UbicacionDao {
     @Query("SELECT * FROM ubicaciones WHERE syncStatus = 'SYNCED' AND serverId IS NOT NULL")
     List<UbicacionEntity> sincronizadas();
 
+    @Query("SELECT COUNT(*) FROM ubicaciones WHERE syncStatus <> 'PENDING_DELETE' "
+            + "AND LOWER(TRIM(nombre)) = LOWER(TRIM(:nombre)) AND localId <> :exceptoLocalId")
+    int contarNombre(String nombre, long exceptoLocalId);
+
     @Insert
     long insertar(UbicacionEntity u);
 

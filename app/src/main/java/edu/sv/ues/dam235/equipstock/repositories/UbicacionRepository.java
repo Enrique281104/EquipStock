@@ -1,6 +1,9 @@
 package edu.sv.ues.dam235.equipstock.repositories;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+
 import androidx.lifecycle.LiveData;
 import edu.sv.ues.dam235.equipstock.api.ApiClient;
 import edu.sv.ues.dam235.equipstock.api.UbicacionApi;
@@ -53,6 +56,13 @@ public class UbicacionRepository implements Sincronizable {
 
     public LiveData<List<UbicacionEntity>> todas() {
         return dao.todas();
+    }
+
+    public void nombreEnUso(String nombre, long exceptoLocalId, Consumer<Boolean> cb) {
+        dbExecutor.execute(() -> {
+            boolean usado = dao.contarNombre(nombre, exceptoLocalId) > 0;
+            new Handler(Looper.getMainLooper()).post(() -> cb.accept(usado));
+        });
     }
 
     // ---------- Escritura local (instantánea) + intento de sincronizar ----------
@@ -129,6 +139,13 @@ public class UbicacionRepository implements Sincronizable {
 
     private String enviarCreacion(UbicacionEntity u) throws IOException {
         Response<UbicacionDto> r = api.crear(aDto(u)).execute();
+
+        if (r.code() == 409) {
+            dao.borrar(u.localId);
+            return "La ubicación \"" + u.nombre
+                    + "\" ya existe en el servidor; se descartó el duplicado.";
+        }
+
         if (!r.isSuccessful() || r.body() == null) return mensajeHttp(r.code());
 
         UbicacionDto creada = r.body();
@@ -146,6 +163,7 @@ public class UbicacionRepository implements Sincronizable {
 
     private String enviarEdicion(UbicacionEntity u) throws IOException {
         Response<UbicacionDto> r = api.actualizar(u.serverId, aDto(u)).execute();
+
         if (r.code() == 404) {                        // ya no existe en el servidor
             enTransaccion(u.localId, a -> {
                 a.serverId = null;
@@ -153,6 +171,13 @@ public class UbicacionRepository implements Sincronizable {
             });
             return null;
         }
+
+        if (r.code() == 409) {
+            enTransaccion(u.localId, a -> a.syncStatus = SyncStatus.SYNCED);
+            return "No se pudo renombrar a \"" + u.nombre
+                    + "\": ya existe otra ubicación con ese nombre.";
+        }
+
         if (!r.isSuccessful()) return mensajeHttp(r.code());
 
         enTransaccion(u.localId, a -> {

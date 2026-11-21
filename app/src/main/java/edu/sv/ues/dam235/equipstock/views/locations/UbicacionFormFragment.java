@@ -98,12 +98,19 @@ public class UbicacionFormFragment extends Fragment {
             }
 
             UbicacionRepository repo = UbicacionRepository.get(requireContext());
-            if (edicion) {
-                repo.editar(localId, nombre, descripcion, aviso);
-            } else {
-                repo.crear(nombre, descripcion, aviso);
-            }
-            cerrar(v);
+            repo.nombreEnUso(nombre, edicion ? localId : -1, usado -> {
+                if (!isAdded()) return;
+                if (usado) {
+                    tilNombre.setError("Ya existe una ubicación con ese nombre");
+                    return;
+                }
+                if (edicion) {
+                    repo.editar(localId, nombre, descripcion, aviso);
+                } else {
+                    repo.crear(nombre, descripcion, aviso);
+                }
+                cerrar(v);
+            });
         });
 
         btnEliminar.setOnClickListener(v -> {

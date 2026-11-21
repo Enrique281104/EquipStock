@@ -61,6 +61,13 @@ public class CategoriaRepository implements Sincronizable {
         return dao.todas();
     }
 
+    public void nombreEnUso(String nombre, long exceptoLocalId, Consumer<Boolean> cb) {
+        dbExecutor.execute(() -> {
+            boolean usado = dao.contarNombre(nombre, exceptoLocalId) > 0;
+            new Handler(Looper.getMainLooper()).post(() -> cb.accept(usado));
+        });
+    }
+
     // ---------- Escritura local (instantánea) + intento de sincronizar ----------
 
     public void crear(String nombre, String descripcion, String icono, Resultado cb) {
@@ -138,6 +145,13 @@ public class CategoriaRepository implements Sincronizable {
 
     private String enviarCreacion(CategoriaEntity c) throws IOException {
         Response<CategoriaDto> r = api.crear(aDto(c)).execute();
+
+        if (r.code() == 409) {
+            dao.borrar(c.localId);
+            return "La categoría \"" + c.nombre
+                    + "\" ya existe en el servidor; se descartó el duplicado.";
+        }
+
         if (!r.isSuccessful() || r.body() == null) return mensajeHttp(r.code());
 
         CategoriaDto creada = r.body();
@@ -148,14 +162,17 @@ public class CategoriaRepository implements Sincronizable {
             a.syncStatus = (a.version == c.version)
                     ? SyncStatus.SYNCED : SyncStatus.PENDING_UPDATE;
         });
+
         if (!existe) {
-            api.eliminar(creada.getId()).execute();   // la borraron mientras se enviaba
+            api.eliminar(creada.getId()).execute();
         }
+
         return null;
     }
 
     private String enviarEdicion(CategoriaEntity c) throws IOException {
         Response<CategoriaDto> r = api.actualizar(c.serverId, aDto(c)).execute();
+
         if (r.code() == 404) {                        // ya no existe en el servidor
             enTransaccion(c.localId, a -> {
                 a.serverId = null;
@@ -163,11 +180,18 @@ public class CategoriaRepository implements Sincronizable {
             });
             return null;
         }
+
+        if (r.code() == 409) {
+            enTransaccion(c.localId, a -> a.syncStatus = SyncStatus.SYNCED);  // el servidor manda: se restaura el nombre
+            return "No se pudo renombrar a \"" + c.nombre + "\": ya existe otra categoría con ese nombre.";
+        }
+
         if (!r.isSuccessful()) return mensajeHttp(r.code());
 
         enTransaccion(c.localId, a -> {
             if (a.version == c.version) a.syncStatus = SyncStatus.SYNCED;
         });
+
         return null;
     }
 

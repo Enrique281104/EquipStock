@@ -116,12 +116,19 @@ public class CategoriaFormFragment extends Fragment {
             }
 
             CategoriaRepository repo = CategoriaRepository.get(requireContext());
-            if (edicion) {
-                repo.editar(localId, nombre, descripcion, icono, aviso);
-            } else {
-                repo.crear(nombre, descripcion, icono, aviso);
-            }
-            cerrar(v);
+            repo.nombreEnUso(nombre, edicion ? localId : -1, usado -> {
+                if (!isAdded()) return;
+                if (usado) {
+                    tilNombre.setError("Ya existe una categoría con ese nombre");
+                    return;
+                }
+                if (edicion) {
+                    repo.editar(localId, nombre, descripcion, icono, aviso);
+                } else {
+                    repo.crear(nombre, descripcion, icono, aviso);
+                }
+                cerrar(v);
+            });
         });
 
         btnEliminar.setOnClickListener(v -> {
